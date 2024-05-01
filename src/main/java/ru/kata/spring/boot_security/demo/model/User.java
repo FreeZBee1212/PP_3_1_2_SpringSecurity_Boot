@@ -1,7 +1,6 @@
 package ru.kata.spring.boot_security.demo.model;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
@@ -9,7 +8,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "users")
@@ -95,10 +93,6 @@ public class User implements UserDetails {
     public void setRole(Set<Role> roles) {
         this.roles = roles;
     }
-
-//    public void add(Role role) {
-//        roles.add(role);
-//    }
 
     public void setRoles(String[] roles) {
         Set<Role> roleSet = new HashSet<>();

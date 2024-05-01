@@ -18,7 +18,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-@Transactional(readOnly = true)
+@Transactional
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
@@ -30,11 +30,13 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
+    @Transactional(readOnly = true)
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public User getUserById(Long id) {
         Optional<User> userBuId = userRepository.findById(id);
         if (userBuId.isPresent()) {
@@ -45,6 +47,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public User getUserByUsername(String username) {
         return userRepository.getUserByUsername(username);
     }
@@ -53,7 +56,6 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void saveUser(User user) {
-//        user.add(new Role("ROLE_USER"));
         user.setPassword(user.getPassword());
         userRepository.saveAndFlush(user);
     }

@@ -8,24 +8,20 @@ import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
-import java.util.Arrays;
-import java.util.Set;
-
 
 @Controller
-@RequestMapping("admin")
+@RequestMapping("/admin")
 public class AdminController {
     private final UserService userService;
 
     @Autowired
-    AdminController(UserService userService, RoleService roleService) {
+    public AdminController(UserService userService) {
         this.userService = userService;
     }
 
     @GetMapping()
     public String getAllUsers(Model model) {
         model.addAttribute("users", userService.getAllUsers());
-        System.out.println("getAllUsers----------------------------");
         return "index";
     }
 
@@ -33,26 +29,22 @@ public class AdminController {
     @GetMapping("/{id}")
     public String show(@PathVariable("id") Long id, Model model) {
         model.addAttribute("user", userService.getUserById(id));
-        System.out.println("show----------------------------");
         return "show";
     }
 
     @GetMapping("/new")
-    public String addUser(@ModelAttribute("user") User user) {
-        System.out.println("addUser----------------------------");
+    public String getUserCreationPage(@ModelAttribute("user") User user) {
         return "new";
     }
 
     @PostMapping()
-    public String create(@ModelAttribute("user") User user) {
+    public String createUser(@ModelAttribute("user") User user) {
         userService.saveUser(user);
-        System.out.println("create----------------------------");
         return "redirect:/admin";
     }
 
     @GetMapping("/{id}/edit")
-    public String edit(Model model, @PathVariable("id") Long id) {
-        System.out.println("edit-----------------------------------------");
+    public String getUserEditingPage(Model model, @PathVariable("id") Long id) {
         model.addAttribute("user", userService.getUserById(id));
         return "edit";
     }
@@ -60,7 +52,6 @@ public class AdminController {
     @PostMapping("/{id}")
     public String update(@ModelAttribute("user") User user,
                          @PathVariable("id") Long id) {
-        System.out.println("flag update---------------------------------------------");
         userService.updateUser(id, user);
         return "redirect:/admin";
     }
@@ -68,7 +59,6 @@ public class AdminController {
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") Long id) {
         userService.deleteUserById(id);
-        System.out.println("delete------------------------------------------------------------");
         return "redirect:/admin";
     }
 }

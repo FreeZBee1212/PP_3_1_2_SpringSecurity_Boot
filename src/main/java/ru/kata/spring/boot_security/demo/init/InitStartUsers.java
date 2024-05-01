@@ -12,12 +12,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Component
-public class DbInit {
+public class InitStartUsers {
 
     private final UserService userService;
 
     @Autowired
-    public DbInit(UserService userService) {
+    public InitStartUsers(UserService userService) {
         this.userService = userService;
     }
 
@@ -32,7 +32,7 @@ public class DbInit {
         Collections.addAll(adminRoles, roleAdmin, roleUser);
         admin.setId(1L);
         admin.setUsername("admin");
-        admin.setPassword("$2a$12$hWxbaYoFF0vBCa8m.VVl8up5oOpvb31uC.G3szPEBIMxHH0lsVuCS");
+        admin.setPassword("admin");
         admin.setSurname("admin");
         admin.setAge(21);
         admin.setEmail("admin@mail.ru");
@@ -44,7 +44,7 @@ public class DbInit {
         Collections.addAll(userRoles, roleUser);
         user.setId(2L);
         user.setUsername("user");
-        user.setPassword("$2a$12$.dksYsGuStqzMfofRpdYOudElB3pT/KqqAxWvCyTfWZHhh2QcKPM2");
+        user.setPassword("user");
         user.setSurname("user");
         user.setAge(22);
         user.setEmail("user@mail.ru");
